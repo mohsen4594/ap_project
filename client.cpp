@@ -116,7 +116,7 @@ int main(void) {
       }
       else if (move[0]=='z') {
 
-        cout<< " please enter the x_position and y_position of wall "<<endl;
+        cout<< " please enter the x_position and y_position of wall "<<endl<<endl;
         cin>> x>>y;
 
         if (x<1 || x>21 || y<1 || y>21 ||(x+y)%2==0){
