@@ -6,7 +6,7 @@
 
 using namespace std;
 
-string pn1 = "";
+string pn = "";
 //bool gs1=0;
 int main(void) {
 
@@ -15,7 +15,7 @@ int main(void) {
   if ( auto res = cli.Get("/hi") ) {
 
     if (res->body !="" ){
-        pn1=res->body;}
+        pn=res->body;}
     else{
         cout<<" you cant enter the game "<<endl;
       }
@@ -23,7 +23,7 @@ int main(void) {
     }
 
 
-    cout<<pn1<<endl;
+    cout<<pn<<endl;
 
     string move ;
     int x,y;
@@ -38,7 +38,7 @@ int main(void) {
       //  cout<<"hellllllllllllllllllllll"<<endl;
         httplib::Params params;
         params.emplace("move", move);
-        params.emplace("name", pn1);
+        params.emplace("name", pn);
 
         auto res = cli.Post("/post", params);
 
@@ -59,7 +59,7 @@ int main(void) {
       else if (move[0] == 'a' ){
         httplib::Params params;
         params.emplace("move", move);
-        params.emplace("name", pn1);
+        params.emplace("name", pn);
 
         auto res = cli.Post("/post", params);
         if (res->body =="tru"){
@@ -78,7 +78,7 @@ int main(void) {
       else if (move[0] == 'd'){
         httplib::Params params;
         params.emplace("move", move);
-        params.emplace("name", pn1);
+        params.emplace("name", pn);
 
         auto res = cli.Post("/post", params);
         if (res->body =="tru"){
@@ -97,7 +97,7 @@ int main(void) {
       else if (move[0] == 's' ){
         httplib::Params params;
         params.emplace("move", move);
-        params.emplace("name", pn1);
+        params.emplace("name", pn);
 
         auto res = cli.Post("/post", params);
         if (res->body =="tru"){
@@ -132,7 +132,7 @@ int main(void) {
                 cout<<s10<<s20<<endl;
                 httplib::Params params;
                 params.emplace("move", move);
-                params.emplace("name", pn1);
+                params.emplace("name", pn);
                 params.emplace("x_pos", s10);
                 params.emplace("y_pos", s20);
                 auto res = cli.Post("/post", params);

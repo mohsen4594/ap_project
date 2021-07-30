@@ -12,9 +12,10 @@ int main(void) {
 	Server svr;
 
   //Server svr;
+		int x_pos;
+		int y_pos;
 
-
-		svr.Get("/hi", [](const Request & req , Response &res) {
+		svr.Get("/hi", [&](const Request & req , Response &res) {
 			if (ii<4){
 			q.register1 (ii);
 			q.print();
@@ -44,8 +45,7 @@ int main(void) {
 			 body.append(data, data_length);
 			 return true;
 		 });
-		 int x_pos=0;
-		 int y_pos=0;
+
 		 		if(body[5]=='z'){
 				string s100="";
 				string s200="";
@@ -53,14 +53,14 @@ int main(void) {
 				if (body[25] !='&')
 					 s100+=body[25];
 				 int temp =body.length();
-				 s200=body[temp-1];
+				 s200+=body[temp-1];
 				 if (body[temp-2]!='=')
 						 s200=body[temp-2]+s200;
-				 int x_pos=stoi(s100);
-				 int y_pos=stoi(s200);
+				  x_pos=stoi(s100);
+				  y_pos=stoi(s200);
 				 cout<<x_pos<< "        "<<y_pos<<endl<<endl;}
 				 string str=body.substr(12,5);
-      	cout<<body<<endl<<endl;
+      	 cout<<body<<endl<<endl;
 
 			string result = q.move_pawn(body[5],str,turn,x_pos,y_pos);
 			if (result=="invalid")
