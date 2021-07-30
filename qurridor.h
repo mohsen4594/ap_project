@@ -92,11 +92,11 @@ public:
 		return false;
 		}
 
-		string move_pawn( char body_5,string str,int turn,int x_pos,int y_pos){
+		string move_pawn( char body_5,string str,int turn,int x_pos,int y_pos,int nop){
 
         if (body_5 !='z'){
 		        if (str=="first"){
-			           if (turn %4 ==0)
+			           if (turn %nop ==0)
 
 			            {	switch(body_5) {
 
@@ -168,7 +168,7 @@ public:
 	 }
 		 else if (str=="secon")
 		 					{
-								if (turn %4 ==1){
+								if (turn %nop ==1){
 		 				switch(body_5) {
 		 	      case 'w' :
 		 	         {
@@ -232,7 +232,7 @@ public:
 			 }
 				 else if (str=="third")
 					{
-						if (turn %4 ==2){
+						if (turn %nop ==2){
 				switch(body_5) {
 	      case 'w' :
 	         {
@@ -300,7 +300,7 @@ public:
 
 		 else if (str=="forth")
 					{
-						if (turn %4 ==3){
+						if (turn %nop ==3){
 				switch(body_5) {
 	      case 'w' :
 	         {
@@ -366,7 +366,7 @@ public:
 		else
 	 {
 		 //res.set_content(body, "text/plain");
-				if (str=="first" && turn%4==0 && wall_a!=0){
+				if (str=="first" && turn%nop==0 && wall_a!=0){
 
 							if (x_pos%2==0){
 									if (board [x_pos][y_pos]=='w'|| board [x_pos][y_pos+2]=='w' )	{
@@ -395,7 +395,7 @@ public:
 			 }
 
 
-				else	if (str=="secon" && turn%4==1 && wall_b!=0){
+				else	if (str=="secon" && turn%nop==1 && wall_b!=0){
 
 						 if (x_pos%2==0){
 								 if (board [x_pos][y_pos]=='w'|| board [x_pos][y_pos+2]=='w' )	{
@@ -422,7 +422,7 @@ public:
 							 }
 						 }
 			}
-			else	if (str=="third" && turn%4==2 && wall_c!=0){
+			else	if (str=="third" && turn%nop==2 && wall_c!=0){
 
 					 if (x_pos%2==0){
 							 if (board [x_pos][y_pos]=='w'|| board [x_pos][y_pos+2]=='w' )	{
@@ -449,7 +449,7 @@ public:
 						 }
 					 }
 		}
-		else	if (str=="forth" && turn%4==3 && wall_d!=0){
+		else	if (str=="forth" && turn%nop==3 && wall_d!=0){
 
 				 if (x_pos%2==0){
 						 if (board [x_pos][y_pos]=='w'|| board [x_pos][y_pos+2]=='w' )	{

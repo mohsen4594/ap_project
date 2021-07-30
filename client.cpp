@@ -87,9 +87,11 @@ int main(void) {
               cli.Get("/stop");
 
             }
-            else if (res->body =="turn"){
-                cout<< "its not your turn !!!!!!!!!! be patient"<<endl<<endl;}
-        else{
+      else if (res->body =="turn"){
+              cout<< "its not your turn !!!!!!!!!! be patient"<<endl<<endl;}
+      else if (res->body =="no"){
+           cout<< "the game is not satrted !!!!!!!!!!"<<endl<<endl;}        
+      else{
           cout<<" your movement is invalid!!! try again "<<endl<<endl;
           }
 

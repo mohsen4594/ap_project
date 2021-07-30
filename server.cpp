@@ -4,8 +4,10 @@
 # include "qurridor.h"
 using namespace httplib;
 int turn=0;
+int nop=0;
 using namespace std;
 int ii=0;
+bool start =true;
 string s [4]={"first","secon","third","forth"};
 quoridor q;
 int main(void) {
@@ -16,20 +18,21 @@ int main(void) {
 		int y_pos;
 
 		svr.Get("/hi", [&](const Request & req , Response &res) {
-			if (ii<4){
+			if (ii<4 && start){
 			q.register1 (ii);
 			q.print();
 			res.set_content(s[ii], "text/plain");}
-			ii++;
+			if (start)
+					ii++;
 
   });
 	 //cout<<a<<endl;
 	 svr.Post("/post",
-  [&](const Request &req, Response &res, const ContentReader &content_reader) {
-		if (req.is_multipart_form_data()) {
-      MultipartFormDataItems files;
-      content_reader(
-        [&](const MultipartFormData &file) {
+   [&](const Request &req, Response &res, const ContentReader &content_reader) {
+		  if (req.is_multipart_form_data()) {
+         MultipartFormDataItems files;
+         content_reader(
+         [&](const MultipartFormData &file) {
           files.push_back(file);
           return true;
         },
@@ -41,44 +44,51 @@ int main(void) {
     }
 		else {
 		 string body;
+		 start =false;
 		 content_reader([&](const char *data, size_t data_length) {
 			 body.append(data, data_length);
 			 return true;
 		 });
 
-		 		if(body[5]=='z'){
-				string s100="";
-				string s200="";
-				s100+=body[24];
-				if (body[25] !='&')
-					 s100+=body[25];
-				 int temp =body.length();
-				 s200+=body[temp-1];
-				 if (body[temp-2]!='=')
-						 s200=body[temp-2]+s200;
-				  x_pos=stoi(s100);
-				  y_pos=stoi(s200);
-				 cout<<x_pos<< "        "<<y_pos<<endl<<endl;}
-				 string str=body.substr(12,5);
-      	 cout<<body<<endl<<endl;
-
-			string result = q.move_pawn(body[5],str,turn,x_pos,y_pos);
-			if (result=="invalid")
-					res.set_content("fal", "text/plain");
-
-			else if (result=="true"){
-				if (!q.win_check()){
-						turn++;
-						q.print();
-					  res.set_content("tru", "text/plain");}
-				else
-						res.set_content("over", "text/plain");
+		 		if (ii<2 && !start ){
+						res.set_content("no", "text/plain");
 				}
-				else if (result=="turn")
-							res.set_content("turn", "text/plain");
-
 				else
+		 		{
+						nop=ii;
+						if(body[5]=='z'){
+						string s100="";
+						string s200="";
+						s100+=body[24];
+						if (body[25] !='&')
+							 s100+=body[25];
+						 int temp =body.length();
+						 s200+=body[temp-1];
+						 if (body[temp-2]!='=')
+								 s200=body[temp-2]+s200;
+						  x_pos=stoi(s100);
+						  y_pos=stoi(s200);
+						 cout<<x_pos<< "        "<<y_pos<<endl<<endl;}
+						 string str=body.substr(12,5);
+		      	 cout<<body<<endl<<endl;
+
+					string result = q.move_pawn(body[5],str,turn,x_pos,y_pos,nop);
+					if (result=="invalid")
 							res.set_content("fal", "text/plain");
+
+					else if (result=="true"){
+						if (!q.win_check()){
+								turn++;
+								q.print();
+							  res.set_content("tru", "text/plain");}
+						else
+								res.set_content("over", "text/plain");
+						}
+						else if (result=="turn")
+									res.set_content("turn", "text/plain");
+
+						else
+									res.set_content("fal", "text/plain");}
 
   }});
 
