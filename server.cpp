@@ -7,7 +7,7 @@ int turn=0;
 int nop=0;
 using namespace std;
 int ii=0;
-bool start =true;
+bool start =false;
 string s [4]={"first","secon","third","forth"};
 quoridor q;
 int main(void) {
@@ -18,12 +18,14 @@ int main(void) {
 		int y_pos;
 
 		svr.Get("/hi", [&](const Request & req , Response &res) {
-			if (ii<4 && start){
+			if (ii<4 && !start){
 			q.register1 (ii);
 			q.print();
 			res.set_content(s[ii], "text/plain");}
-			if (start)
+			if (!start)
 					ii++;
+			else
+				res.set_content("", "text/plain");
 
   });
 	 //cout<<a<<endl;
@@ -44,7 +46,7 @@ int main(void) {
     }
 		else {
 		 string body;
-		 start =false;
+
 		 content_reader([&](const char *data, size_t data_length) {
 			 body.append(data, data_length);
 			 return true;
@@ -52,9 +54,11 @@ int main(void) {
 
 		 		if (ii<2 && !start ){
 						res.set_content("no", "text/plain");
+
 				}
 				else
 		 		{
+						start=true;
 						nop=ii;
 						if(body[5]=='z'){
 						string s100="";

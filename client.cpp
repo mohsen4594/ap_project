@@ -5,7 +5,7 @@
 #define CA_CERT_FILE "./ca-bundle.crt"
 
 using namespace std;
-
+bool permission =true;
 string pn = "";
 //bool gs1=0;
 int main(void) {
@@ -18,6 +18,7 @@ int main(void) {
         pn=res->body;}
     else{
         cout<<" you cant enter the game "<<endl;
+        permission=false;
       }
 
     }
@@ -27,7 +28,7 @@ int main(void) {
 
     string move ;
     int x,y;
-    while (true){
+    while (permission){
 
 
       cout<<"if you want to move pawn  please enter (w) for up -(a) for left- (d)for right- (s) for down"<<endl<<endl;
@@ -67,6 +68,8 @@ int main(void) {
             else if (res->body =="over"){
               cli.Get("/stop");
             }
+            else if (res->body =="no"){
+                 cout<< "the game is not satrted !!!!!!!!!!"<<endl<<endl;}
             else if (res->body =="turn"){
                 cout<< "its not your turn !!!!!!!!!! be patient"<<endl<<endl;}
 
@@ -90,7 +93,7 @@ int main(void) {
       else if (res->body =="turn"){
               cout<< "its not your turn !!!!!!!!!! be patient"<<endl<<endl;}
       else if (res->body =="no"){
-           cout<< "the game is not satrted !!!!!!!!!!"<<endl<<endl;}        
+           cout<< "the game is not satrted !!!!!!!!!!"<<endl<<endl;}
       else{
           cout<<" your movement is invalid!!! try again "<<endl<<endl;
           }
